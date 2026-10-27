@@ -12,6 +12,9 @@ struct ContentView: View {
 
     var body: some View {
         VStack {
+            Text("Five Shapes")
+                .font(.largeTitle)
+            
             ToggleImmersiveSpaceButton()
         }
     }
