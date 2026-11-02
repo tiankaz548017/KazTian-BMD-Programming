@@ -18,12 +18,16 @@ struct ImmersiveView: View {
                 materials: [SimpleMaterial(color: .cyan, isMetallic: false)])
             sphere1.position = [-0.6, 1.2, -1]
             content.add(sphere1)
+            sphere1.components.set(InputTargetComponent())
+            sphere1.components.set(CollisionComponent(shapes: [.generateSphere(radius: 0.1)]))
             
             let sphere2 = ModelEntity(
                 mesh: .generateSphere(radius: 0.1),
                 materials: [SimpleMaterial(color: .orange, isMetallic: false)])
             sphere2.position = [-0.3, 1.2, -1]
             content.add(sphere2)
+            sphere2.components.set(InputTargetComponent())
+            sphere2.components.set(CollisionComponent(shapes: [.generateSphere(radius: 0.1)]))
             
             let box1 = ModelEntity(
                 mesh: .generateBox(size: 0.15),
@@ -62,5 +66,22 @@ struct ImmersiveView: View {
                     relativeTo: nil, duration: 2.0)
             }
         }
+        
+        .gesture(
+            DragGesture()
+                .targetedToAnyEntity()
+                .onChanged { value in
+                    value.entity.position = value.convert(
+                        value.location3D, from: .local, to: value.entity.parent!)
+                }
+        )
+        .gesture(
+            RotateGesture3D()
+                .targetedToAnyEntity()
+                .onChanged { value in
+                    value.entity.orientation = Transform(AffineTransform3D(rotation: value.rotation)).rotation
+                }
+        )
     }
 }
+
