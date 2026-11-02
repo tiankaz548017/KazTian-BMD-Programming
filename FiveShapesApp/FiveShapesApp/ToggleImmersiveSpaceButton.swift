@@ -1,3 +1,5 @@
+// xcode: set sdk=visionOS
+
 //
 //  ToggleImmersiveSpaceButton.swift
 //  FiveShapesApp

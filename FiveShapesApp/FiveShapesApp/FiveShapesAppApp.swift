@@ -1,3 +1,5 @@
+// xcode: set sdk=visionOS
+
 //
 //  FiveShapesAppApp.swift
 //  FiveShapesApp
@@ -13,6 +15,7 @@ struct FiveShapesAppApp: App {
     @State private var appModel = AppModel()
     @State private var avPlayerViewModel = AVPlayerViewModel()
     
+    
     var body: some Scene {
         WindowGroup {
             if avPlayerViewModel.isPlaying {
@@ -20,11 +23,14 @@ struct FiveShapesAppApp: App {
             } else {
                 ContentView()
                     .environment(appModel)
-            }
+           
+           }
         }
+
+    .windowStyle(.volumetric)
+    .defaultSize(width: 0.6, height: 0.4, depth: 0.6, in: .meters)
+
         
-        .windowStyle(.volumetric)
-        //.defaultSize(width: 0.6, height: 0.4, depth: 0.6, in: .meters)
 
         ImmersiveSpace(id: appModel.immersiveSpaceID) {
             ImmersiveView()
@@ -38,6 +44,6 @@ struct FiveShapesAppApp: App {
                     avPlayerViewModel.reset()
                 }
         }
-        .immersionStyle(selection: .constant(.full), in: .full)
+        .immersionStyle(selection: .constant(.mixed), in: .mixed)
     }
 }

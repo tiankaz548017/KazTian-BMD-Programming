@@ -1,3 +1,5 @@
+// xcode: set sdk=visionOS
+
 //
 //  ContentView.swift
 //  FiveShapesApp
@@ -9,16 +11,22 @@ import SwiftUI
 import RealityKit
 
 struct ContentView: View {
-
+    @Environment(\.openImmersiveSpace) var openImmersiveSpace
+    
     var body: some View {
         VStack {
             Text("Five Shapes")
                 .font(.largeTitle)
-            
-            ToggleImmersiveSpaceButton()
+            Button("Show Shapes") {
+                Task {
+                    await openImmersiveSpace(id: "ImmersiveSpace")
+                }
+            }
         }
+        .padding()
     }
 }
+
 
 #Preview(windowStyle: .automatic) {
     ContentView()
